@@ -1,0 +1,46 @@
+"patho_niv2","moyenne_cas","moyenne_taux","cluster"
+"Accident vasculaire cérébral",-0.269674205395823,0.500246367075609,2
+"Affections de longue durée (dont 31 et 32) pour d'autres causes",0.248297119036095,-0.924281417939618,3
+"Artériopathie périphérique",-0.195417821738374,-0.136245625698317,2
+"Autres affections cardiovasculaires",-0.488340793735163,0.649135198760213,1
+"Autres affections neurologiques",-0.571759567272997,1.20100638708817,1
+"Autres cancers",0.0189334784980972,0.619004928012906,5
+"Autres troubles psychiatriques",-0.389469034279664,-1.52309179691948,3
+"Cancer bronchopulmonaire",-0.596390137747465,0.948336459045279,1
+"Cancer colorectal",-0.484694071394711,0.555149517805632,2
+"Cancer de la prostate",-0.457313264488485,0.0766870364142462,2
+"Cancer du sein de la femme",-0.422973295782565,0.302396333790102,2
+"Déficience mentale",-0.58680229692736,-0.790981328827037,3
+"Démences (dont maladie d'Alzheimer)",-0.232614389610982,-1.22546268848154,3
+"Diabète",0.801504898082629,0.917883743490974,5
+"Dialyse chronique",-0.637901993722941,1.05687639841949,1
+"Embolie pulmonaire",-0.641138459800092,0.948431864861792,1
+"Épilepsie",-0.357742549917734,0.0234453056451849,2
+"Hospitalisations hors pathologies repérées (avec ou sans pathologies, traitements ou maternité)",4.360250062071,0.0220139100672304,4
+"Infection par le VIH",-0.619759550079193,1.36349784808609,1
+"Insuffisance cardiaque",-0.368652327586252,-0.134535216187931,2
+"Lésion médullaire",-0.618027356967479,0.0669109933438043,2
+"Maladie coronaire",0.0265612060602086,0.500974270572947,5
+"Maladie de Parkinson",-0.526494626222139,0.0619767484045481,2
+"Maladie valvulaire",-0.388101513401995,-0.112765976070624,2
+"Maladies du foie ou du pancréas (hors mucoviscidose)",-0.370642830197082,0.307649711466903,2
+"Maladies inflammatoires chroniques",-0.451344795591279,0.896276285525603,1
+"Maladies rares",-0.590654147399463,0.169677051851104,2
+"Maladies respiratoires chroniques (hors mucoviscidose)",1.36173261763453,0.00107749162958041,7
+"Maternité (avec ou sans pathologies)",-0.100830961032906,-1.26454787214551,3
+"Myopathie ou myasthénie",-0.636534472845271,0.32500890177499,2
+"Sclérose en plaques",-0.594642749959332,0.843829172581379,1
+"Suivi de transplantation rénale",-0.64104729174158,0.146303275102721,2
+"Traitement antalgique ou anti-inflammatoire (hors pathologies, traitements, maternité ou hospitalisations)",-0.17754888227016,-0.36451550568391,2
+"Traitements antidépresseurs ou régulateurs de l'humeur (hors pathologies)",1.04857033664824,0.191045380590555,5
+"Traitements antihypertenseurs (hors pathologies)",3.2103929240973,-0.5543969288518,4
+"Traitements anxiolytiques (hors pathologies)",1.3304163895359,-1.05341377368153,7
+"Traitements hypnotiques (hors pathologies)",0.371419582055598,-2.71387766419895,6
+"Traitements hypolipémiants (hors pathologies)",1.17565861021298,-1.16926638136034,7
+"Traitements neuroleptiques (hors pathologies)",-0.477309458655296,-0.76970111142662,3
+"Transplantation rénale",-0.659417655531606,-3.23182129096329,6
+"Troubles addictifs",-0.184933495009575,1.84735494616589,1
+"Troubles du rythme ou de la conduction cardiaque",0.375430976630095,0.673403377383487,5
+"Troubles névrotiques et de l'humeur",0.303180290259894,0.189410099608553,5
+"Troubles psychiatriques débutant dans l'enfance",-0.549149888762196,1.01909191689115,1
+"Troubles psychotiques",-0.345024605755408,-0.455196343019635,2
