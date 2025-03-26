@@ -5,7 +5,7 @@ library(cluster)
 
 
 # Importation des données (issue de la data preparation)
-data_maladie_preparation <- read.csv("data_maladie_preparation.csv", sep = ",")
+data_maladie_preparation <- read.csv("Data/data_maladie_preparation.csv", sep = ",")
 
 ## Mise en forme du jeu de données pour l'application du clustering ##
 
@@ -87,4 +87,4 @@ data_clustering %>%
     moyenne_taux = mean(moyenne_taux)  # Moyenne des taux
   ) %>% arrange(-moyenne_taux)
 
-write.csv(data_clustering, "data_clustering.csv", row.names = FALSE)
+write.csv(data_clustering, "Data/data_clustering.csv", row.names = FALSE)
