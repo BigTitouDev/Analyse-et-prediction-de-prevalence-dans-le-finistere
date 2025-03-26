@@ -18,10 +18,15 @@ Ce projet vise à analyser l'évolution des maladies en France à partir des don
 
 ## 📂 Structure du projet
 ```
-📁 analyse_sante
-│── 📂 data           # Données brutes et traitées
+📁 Analyse-et-prediction-de-prevalence-dans-le-finistere 
 │── 📂 code   # Scripts d'analyse et modèles prédictifs
-│── 📂 reports        # Résultats et visualisations
+    │── 📄 Data_preparation.R  # Extraction et preparation des données
+    │── 📄 Clustering.R  # Clustering des pathologies selon le taux d'augmentation de prevalence et du nombre de cas
+    │── 📄 Regression.R  # Utilisation de différents modèles de regression pour prédire le nombre de cas en 2030
+    │── 📂 data           # Données brutes et traitées
+        │── 📊 data_maladie_effectifs_finistere.csv  # données issue de Amelie pour le département finistère
+        │── 📊 data_preparation.csv  # Données issues de la partie data préparation
+        │── 📊 data_clustering  # Données associant chaque pathologie a un cluster
 │── README.md        # Documentation du projet
 ```
 
