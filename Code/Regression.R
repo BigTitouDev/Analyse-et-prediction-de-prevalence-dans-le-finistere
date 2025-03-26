@@ -6,11 +6,11 @@ library(randomForest)
 library(rpart)
 
 # Importation des données (Data preparation et data clustering)
-data_maladie_effectifs_finistere <- read.csv("data_maladie_effectifs_finistere.csv", sep = ",")
-data_clustering <- read.csv("data_clustering.csv", sep = ",")
+data_maladie_preparation <- read.csv("Data/data_maladie_preparation.csv", sep = ",")
+data_clustering <- read.csv("Data/data_clustering.csv", sep = ",")
 
 # Fusion des datasets sur la colonne 'patho_niv2'
-data_regression <- merge(data_clustering, data_maladie_effectifs_finistere, by = "patho_niv2")
+data_regression <- merge(data_clustering, data_maladie_preparation, by = "patho_niv2")
 
 # Filtrage des clusters avec un taux d'augmentation de prévalence elevé (cluster 1 et 5 pour le seed 128)
 
