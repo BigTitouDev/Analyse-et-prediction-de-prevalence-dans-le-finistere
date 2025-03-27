@@ -12,11 +12,11 @@ data_clustering <- read.csv("Data/data_clustering.csv", sep = ",")
 # Fusion des datasets sur la colonne 'patho_niv2'
 data_regression <- merge(data_clustering, data_maladie_preparation, by = "patho_niv2")
 
-# Filtrage des clusters avec un taux d'augmentation de prévalence elevé (cluster 1 et 5 pour le seed 128)
+# Filtrage des clusters qui nous interessent pour la régression
 
-data_regression <- data_regression[data_regression$cluster %in% c(1, 5), ]
+data_regression <- data_regression[data_regression$cluster %in% c(2, 4), ]
 
-# Suppression des colonnes 'moyenne_cas', 'moyenne_taux' et 'cluster'
+#Selection des colonnes pour la régression
 data_regression <- data_regression %>% select(-moyenne_cas, -moyenne_taux, -cluster)
 
 # Création d'une liste pour stocker les résultats
@@ -31,16 +31,15 @@ results <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Liste de toutes les pathologies dans votre dataset
 pathologies <- unique(data_regression$patho_niv2)
 
-# Pour chaque pathologie, calculer la régression, la MSE et prédire pour 2030
+set.seed(123)
+
+# Pour chaque pathologie, on predit le nombre de personnes atteintes et on calcul l'erreur moyenne (racine de MSE) par modèle 
 for (patho in pathologies) {
   
-  # Filtrer les données pour la pathologie actuelle
   data_patho <- filter(data_regression, patho_niv2 == patho)
-  
-  # Vérifier si la pathologie a suffisamment de données (au moins 2 années)
+
   if (nrow(data_patho) > 1) {
     
     # Modèle de régression linéaire

@@ -11,13 +11,10 @@ data_maladie_preparation <- read.csv("Data/data_maladie_preparation.csv", sep = 
 
 # On pivote le dataset de sorte à avoir une instance par pathologie associée à une prevalence et un nombre de cas pour chaque année
 data_clustering <- reshape(data_maladie_preparation, idvar = 'patho_niv2', timevar = 'annee', direction = 'wide')
-
-# Réinitialiser l'index
 rownames(data_clustering) <- 1:nrow(data_clustering)
-
 data_clustering <- na.omit(data_clustering)
 
-# Afin d'analyser les variation de la prévalence des pathologies, on calcul le taux de variation de la prévalence pour chaque année (ex : le taux d'augmentation entre 2017 et 2018)
+# calcul du taux de variation de la prévalence entre chaque année (ex : le taux d'augmentation entre 2017 et 2018)
 for (year in 2016:2022) {
   prev_current <- paste0('prev.', year)
   prev_previous <- paste0('prev.', year - 1)
@@ -29,7 +26,6 @@ for (year in 2016:2022) {
 
 # On va s'interesser à la variation moyenne du taux sur ces 5 dernieres années, on calcul donc la moyenne des taux de variation pour chaque pathologie et la moyenne du nombre de cas
 data_clustering$moyenne_cas <- rowMeans(data_clustering[, c('ntop.2015', 'ntop.2016','ntop.2017', 'ntop.2018', 'ntop.2019', 'ntop.2020', 'ntop.2021', 'ntop.2022')], na.rm = TRUE)
-
 data_clustering$moyenne_taux <- rowMeans(data_clustering[, c('taux.2016','taux.2017', 'taux.2018', 'taux.2019', 'taux.2020', 'taux.2021', 'taux.2022')], na.rm = TRUE)
 
 # Suppression des colonnes inutiles pour le clustering
@@ -38,6 +34,7 @@ data_clustering <- data_clustering[, c('patho_niv2', 'moyenne_cas', 'moyenne_tau
 #Duplication du dataset pour l'analyse des cluster
 data_clustering_analyse <- data_clustering
 
+
 # Normalisation des données
 data_clustering[, c('moyenne_cas', 'moyenne_taux')] <- scale(data_clustering[, c('moyenne_cas', 'moyenne_taux')])
 
@@ -45,30 +42,22 @@ data_clustering[, c('moyenne_cas', 'moyenne_taux')] <- scale(data_clustering[, c
 ## Clustering ##
 
 
-set.seed(42)
+set.seed(123)
 
 # Sélection des colonnes pour le clustering
 X <- data_clustering[, c('moyenne_cas', 'moyenne_taux')]
 
-# Initialisation des scores de silhouette
+#Détermination du score silhouette
 silhouette_scores <- c()
 
-# Boucle pour tester différents nombres de clusters
 for (n_clusters in 2:20) {
   model <- kmeans(X, centers = n_clusters, nstart = 10)
-  
-  # Calcul du score de silhouette
   sil <- silhouette(model$cluster, dist(X))
-  
-  # Stocker la moyenne du score de silhouette
-  score_moyen <- mean(sil[, 3])  # colonne 3 contient 'sil_width'
+  score_moyen <- mean(sil[, 3])  
   silhouette_scores <- c(silhouette_scores, score_moyen)
-  
-  # Affichage du score pour chaque k
   print(paste("Clusters:", n_clusters, "- Silhouette Score:", round(score_moyen, 4)))
 }
 
-#Courbe du score de silhouette
 plot(2:20, silhouette_scores, type = "b", pch = 19, col = "blue",
      xlab = "Nombre de clusters (k)", ylab = "Score de silhouette moyen",
      main = "Courbe du Score de Silhouette")
@@ -85,7 +74,6 @@ plot(data_clustering$moyenne_taux,data_clustering$moyenne_cas , col = data_clust
 #On recupere le dataset avant normalisation afin d'analyser les données des clusters
 data_analyse <- merge(data_clustering, data_clustering_analyse, by = "patho_niv2")
 
-# Affichage des données des clusters
 data_analyse %>%
   group_by(cluster) %>%
   summarise(
