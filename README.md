@@ -15,6 +15,7 @@ Ce projet vise à analyser l'évolution des maladies en France à partir des don
 
 ## 🛠 Technologies utilisées
 - **R** (dplyr, cluster, tidyverse, caret, randomForest, rpart)
+- ** Datawrapper ** : Création de visuels
 
 ## 📂 Structure du projet
 ```
