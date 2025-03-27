@@ -35,6 +35,9 @@ data_clustering$moyenne_taux <- rowMeans(data_clustering[, c('taux.2016','taux.2
 # Suppression des colonnes inutiles pour le clustering
 data_clustering <- data_clustering[, c('patho_niv2', 'moyenne_cas', 'moyenne_taux')]
 
+#Duplication du dataset pour l'analyse des cluster
+data_clustering_analyse <- data_clustering
+
 # Normalisation des données
 data_clustering[, c('moyenne_cas', 'moyenne_taux')] <- scale(data_clustering[, c('moyenne_cas', 'moyenne_taux')])
 
@@ -42,7 +45,7 @@ data_clustering[, c('moyenne_cas', 'moyenne_taux')] <- scale(data_clustering[, c
 ## Clustering ##
 
 
-set.seed(123)
+set.seed(42)
 
 # Sélection des colonnes pour le clustering
 X <- data_clustering[, c('moyenne_cas', 'moyenne_taux')]
@@ -51,40 +54,44 @@ X <- data_clustering[, c('moyenne_cas', 'moyenne_taux')]
 silhouette_scores <- c()
 
 # Boucle pour tester différents nombres de clusters
-for (n_clusters in 2:30) {
+for (n_clusters in 2:20) {
   model <- kmeans(X, centers = n_clusters, nstart = 10)
   
   # Calcul du score de silhouette
   sil <- silhouette(model$cluster, dist(X))
   
   # Stocker la moyenne du score de silhouette
-  score_moyen <- mean(sil[, 'sil_width'])
+  score_moyen <- mean(sil[, 3])  # colonne 3 contient 'sil_width'
   silhouette_scores <- c(silhouette_scores, score_moyen)
   
-  # Affichage du score de silhouette pour chaque nombre de clusters
+  # Affichage du score pour chaque k
   print(paste("Clusters:", n_clusters, "- Silhouette Score:", round(score_moyen, 4)))
 }
 
+#Courbe du score de silhouette
+plot(2:20, silhouette_scores, type = "b", pch = 19, col = "blue",
+     xlab = "Nombre de clusters (k)", ylab = "Score de silhouette moyen",
+     main = "Courbe du Score de Silhouette")
+
+
 # Clustering des données
-model <- kmeans(X, centers = 7, nstart = 10)
+model <- kmeans(X, centers = 8, nstart = 10)
 data_clustering$cluster <- model$cluster
-
-
-# PROBLEME D'affichage des clusters
-
 
 # Affichage des clusters
 plot(data_clustering$moyenne_taux,data_clustering$moyenne_cas , col = data_clustering$cluster, pch = 19, cex = 2, main = "Moyenne des cas par pathologie et par nombre de cas", xlab = "Moyenne des taux de progression", ylab = "Moyenne des cas")
-legend('topright', legend = unique(data_clustering$cluster), col = 1:10, pch = 19, cex = 1, title = 'Cluster')
 
+
+#On recupere le dataset avant normalisation afin d'analyser les données des clusters
+data_analyse <- merge(data_clustering, data_clustering_analyse, by = "patho_niv2")
 
 # Affichage des données des clusters
-data_clustering %>%
+data_analyse %>%
   group_by(cluster) %>%
   summarise(
     patho_niv2 = n(),  # Nombre de pathologies
-    moyenne_cas = mean(moyenne_cas),  # Moyenne des cas
-    moyenne_taux = mean(moyenne_taux)  # Moyenne des taux
+    moyenne_cas = mean(moyenne_cas.y),  # Moyenne des cas
+    moyenne_taux = mean(moyenne_taux.y)  # Moyenne des taux
   ) %>% arrange(-moyenne_taux)
 
 write.csv(data_clustering, "Data/data_clustering.csv", row.names = FALSE)
