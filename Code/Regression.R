@@ -58,7 +58,7 @@ for (patho in pathologies) {
     mse_rf <- mean((rf_predictions - data_patho$ntop)^2)
     
     # Prédiction pour 2030
-    new_data <- data.frame(annee = 2030, npop = 950000)
+    new_data <- data.frame(annee = 2030, npop = 1000000)
     prediction_lm <- predict(lm_model, newdata = new_data)
     prediction_tree <- predict(tree_model, newdata = new_data)
     prediction_rf <- predict(rf_model, newdata = new_data)
